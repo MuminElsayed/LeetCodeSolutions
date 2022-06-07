@@ -59,7 +59,7 @@ public class LeetCodeSolutions
     //#3
     //Link: https://leetcode.com/problems/roman-to-integer/
 
-    //Solution summary: Set a hashtable for the roman letters, loop through string and translate it, also check if previous letter is subraction
+    //Solution summary: Set a hashtable for the roman letters, loop through string and translate it, also check if previous letter causes subraction
 
     public int RomanToInt(string s)
     {
@@ -79,6 +79,37 @@ public class LeetCodeSolutions
             }
         }
 
+        return result;
+    }
+
+    //#4
+    //https://leetcode.com/problems/longest-common-prefix/
+
+    //Solution: take the first word, and compare its letters with the remaining words, if letter matches, add to result string. Recurse until false.
+
+    public string LongestCommonPrefix(string[] strs)
+    {
+        string result = "";
+        if (strs[0].Length > 0) //If it's not an empty string
+        {
+            for (int i = 0; i < strs[0].Length; i++) //Loop through the letters of the first word (i = letters)
+            {
+                for (int j = 0; j < strs.Length - 1; j++) //Loop through all words (j = words)
+                {
+                    //Compare the letter with the same index in all the other words
+                    if (strs[j][i] == strs[j + 1][i]) //Compare the letter with the letter in the next word
+                    {
+                        continue;
+                    }
+                    else
+                    { //Letters don't match
+                        break; //Assuming it breaks through the nested loop
+                    }
+                }
+                result += strs[0][i].ToString(); //If loop didn't break, add the current letter as a match
+            }
+        }
+        
         return result;
     }
 }
