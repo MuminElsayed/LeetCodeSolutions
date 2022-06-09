@@ -89,27 +89,25 @@ public class LeetCodeSolutions
 
     public string LongestCommonPrefix(string[] strs)
     {
-        string result = "";
-        if (strs[0].Length > 0) //If it's not an empty string
+        //Exit conditions
+        if (strs == null || strs.Length == 0)
         {
-            for (int i = 0; i < strs[0].Length; i++) //Loop through the letters of the first word (i = letters)
+            return "";
+        }
+
+        //Go through the same letter index in each word
+        for (int i = 0; i < strs[0].Length; i++) //Loop through the letters of the first word (i = letters)
+        {
+            char currentLetter = strs[0][i]; //Get the current letter
+            for (int j = 0; j < strs.Length; j++) //Loop through all words (j = words)
             {
-                for (int j = 0; j < strs.Length - 1; j++) //Loop through all words (j = words)
+                //Compare the letter with the same index in all the other words
+                if (strs[j].Length == i || strs[j][i] != currentLetter) //If the letter doesn't match, or if the word is shorter than the current letter index, then exit
                 {
-                    //Compare the letter with the same index in all the other words
-                    if (strs[j][i] == strs[j + 1][i]) //Compare the letter with the letter in the next word
-                    {
-                        continue;
-                    }
-                    else
-                    { //Letters don't match
-                        break; //Assuming it breaks through the nested loop
-                    }
+                    return strs[0].Substring(0, i); //Exit returning the matching letters so far
                 }
-                result += strs[0][i].ToString(); //If loop didn't break, add the current letter as a match
             }
         }
-        
-        return result;
+        return strs[0]; //If reached here, then the first word matches all other words
     }
 }
